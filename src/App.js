@@ -4,6 +4,7 @@ import axios from 'axios';
 import Filmes from './filmes';
 import Sessao from './sessoes';
 import Assentos from './assentos';
+import Sucesso from './sucesso';
 
 export default function App() {
     const [filmes, setFilmes] = useState([]);
@@ -14,6 +15,8 @@ export default function App() {
     const [sessaoEscolhida, setSessaoEscolhida] = useState();
     const [hora, setHora] = useState();
     const [assentosEscolhidos, setAssentosEscolhidos] = useState([]);
+    const [nome, setNome] = useState("");
+    const [cpf, setCpf] = useState();
 
     function mostrarFilmes (resposta){
         console.log(resposta.data);
@@ -38,7 +41,7 @@ export default function App() {
                 element={<Filmes 
                 filmes={filmes} 
                 setFilmeEscolhido={setFilmeEscolhido} 
-                setIdFilme={setIdFilme}/>}/>
+                setIdFilme={setIdFilme}/>} />
 				<Route 
                 path={idFilme} 
                 element={<Sessao 
@@ -48,15 +51,24 @@ export default function App() {
                 setIdSessao={setIdSessao} 
                 setSessaoEscolhida={setSessaoEscolhida}/>} />
                 <Route 
-                path="/sessao/2" 
+                path={idSessao} 
                 element={<Assentos 
                 filmeEscolhido={filmeEscolhido} 
                 sessao={sessao} 
                 hora={hora} 
-                idFilme={idFilme} 
+                idFilme={idFilme}
+                assentosEscolhidos={assentosEscolhidos} 
                 setAssentosEscolhidos={setAssentosEscolhidos} 
                 idSessao={idSessao} 
-                sessaoEscolhida={sessaoEscolhida}/>}/>
+                sessaoEscolhida={sessaoEscolhida}
+                nome={nome} 
+                cpf={cpf}
+                setNome={setNome} 
+                setcpf={setCpf}/>} />
+                <Route
+                path='/sucesso'
+                element={<Sucesso/>}
+                />
 			</Routes>
 		</BrowserRouter>
 	);

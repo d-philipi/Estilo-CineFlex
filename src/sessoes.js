@@ -27,20 +27,21 @@ export default function Sessao ({setSessao, filmeEscolhido, setHora, setIdSessao
     function Horarios({horarios, botao, sessao}){
         return(
             horarios.map((h, index) =>
-            <Link to={"/sessao/2"}> 
-            <button onClick={() => botao(h, sessao, h.id)} key={index}>
-                {h.name}
-            </button>
+            <Link to={"/sessao/"+h.id}> 
+                <button onClick={() => botao(h, sessao)} key={index}>
+                    {h.name}
+                </button>
             </Link>
             )
         )
     }
 
-    function botao(h, sessao, index){
+    function botao(h, sessao){
+        console.log(h.id);
         setHora(h.name);
+        setSessaoEscolhida(h.id);
         setSessao(sessao);
-        setSessaoEscolhida(index);
-        setIdSessao("/sessao/"+index);
+        setIdSessao("/sessao/"+h.id);
     }
 
     return(

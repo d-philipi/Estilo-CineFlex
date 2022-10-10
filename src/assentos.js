@@ -3,8 +3,9 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
-export default function Assentos({filmeEscolhido, sessao, hora, idFilme, setAssentosEscolhidos, idSessao, sessaoEscolhida}){
+export default function Assentos({filmeEscolhido, sessao, hora, idFilme, assentosEscolhidos, setAssentosEscolhidos, idSessao, sessaoEscolhida, nome, cpf, setNome, setCpf}){
     const [assentos, setAssentos] = useState([]);
+    const [cor,setCor] = useState();
 
     function mostrarAssentos (resposta){
         console.log("Sessao", resposta.data.seats);
@@ -12,7 +13,7 @@ export default function Assentos({filmeEscolhido, sessao, hora, idFilme, setAsse
     }
 
     let num = sessaoEscolhida;
-    let link = "https:mock-api.driven.com.br/api/v5/cineflex/showtimes/2/seats";
+    let link = "https:mock-api.driven.com.br/api/v5/cineflex/showtimes/"+num+"/seats";
     let green = '#0E7D71';
     let gray = '#C3CFD9';
     let yellow = '#F7C52B';
@@ -43,9 +44,18 @@ export default function Assentos({filmeEscolhido, sessao, hora, idFilme, setAsse
             <Cadeiras>
                 {assentos.map((a,index) => 
                 <li>
-                    <button>
+                    <Botao 
+                    cor={!a.isAvailable ? yellow
+                         : 
+                         assentosEscolhidos.includes(a) ? green
+                          : 
+                          gray}
+                    onClick={(a) => assentosEscolhidos.includes(a) ? cor={gray}
+                     : 
+                     setAssentosEscolhidos([...assentosEscolhidos, a])}
+                    >
                         {a.name}
-                    </button>
+                    </Botao>
                 </li>
                 )}
             </Cadeiras>
@@ -66,9 +76,19 @@ export default function Assentos({filmeEscolhido, sessao, hora, idFilme, setAsse
             </Exemplos>
             <Form onSubmit={reservarAssento}>
                 <p>Nome do comprador:</p>
-                <input type="text" placeholder="Digite seu nome..." />
+                <input 
+                type="text" 
+                placeholder="Digite seu nome..." 
+                value={nome} 
+                onChange={e => setNome(e.target.value)}
+                />
                 <p>CPF do comprador:</p>
-                <input type="number" placeholder="Digite seu CPF..." />
+                <input 
+                type="number" 
+                placeholder="Digite seu CPF..." 
+                value={cpf} 
+                onChange={e => setCpf(e.target.value)}
+                />
                 <Reservar type="submit">Reservar assento(s)</Reservar>
             </Form>
             <Filme>
@@ -165,7 +185,7 @@ const Exemplos = styled.ul`
 const Botao = styled.button`
     width: 30px;
     height: 30px;
-    margin: 10px 0;
+    margin: 5px;
     background: ${props => props.cor};
     border: 1px solid #808F9D;
     border-radius: 15px;

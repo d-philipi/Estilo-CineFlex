@@ -20,11 +20,11 @@ export default function Filmes({filmes, setFilmeEscolhido, setIdFilme}){
             <ContainerFilmes>
                 {filmes.map((f,index) => 
                 <Link to={"/filme/"+index}>
-                <li 
-                key={index}
-                onClick={() => escolhido(f,index)} >
-                    <img src={f.posterURL} alt='Banner do filme'/>
-                </li>
+                    <li 
+                    key={index}
+                    onClick={() => escolhido(f,index)} >
+                        <img src={f.posterURL} alt='Banner do filme'/>
+                    </li>
                 </Link>
                 )}
             </ContainerFilmes>
