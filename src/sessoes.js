@@ -28,9 +28,9 @@ export default function Sessao ({setSessao, filmeEscolhido, setHora, setIdSessao
         return(
             horarios.map((h, index) =>
             <Link to={"/sessao/"+h.id}> 
-                <button onClick={() => botao(h, sessao)} key={index}>
+                <Botao onClick={() => botao(h, sessao)} key={index}>
                     {h.name}
-                </button>
+                </Botao>
             </Link>
             )
         )
@@ -92,6 +92,7 @@ const Titulo = styled.div`
 `
 
 const Sessoes = styled.ul`
+
 `
 
 const Filme = styled.div`
@@ -117,4 +118,21 @@ const Filme = styled.div`
         font-size: 26px;
         color: #293845;
     }
+`
+
+const Botao = styled.div`
+    width: 83px;
+    height: 43px;
+    margin: 5px;
+    background: #E8833A;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
 `
