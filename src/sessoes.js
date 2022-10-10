@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
-export default function Sessao ({setSessao, filmeEscolhido, setHora}){
+export default function Sessao ({setSessao, filmeEscolhido, setHora, setIdSessao, setSessaoEscolhida}){
     const [sessoes, setSessoes] = useState([])
 
     function mostrarSessoes (resposta){
@@ -24,11 +24,11 @@ export default function Sessao ({setSessao, filmeEscolhido, setHora}){
 		});
 	}, []);
 
-    function Horarios({horarios, botao, s}){
+    function Horarios({horarios, botao, sessao}){
         return(
-            horarios.map((h,index) =>
-            <Link to> 
-            <button onClick={() => botao(h,s)} key={index}>
+            horarios.map((h, index) =>
+            <Link to={"/sessao/2"}> 
+            <button onClick={() => botao(h, sessao, h.id)} key={index}>
                 {h.name}
             </button>
             </Link>
@@ -36,10 +36,11 @@ export default function Sessao ({setSessao, filmeEscolhido, setHora}){
         )
     }
 
-    function botao({h, s}){
-        console.log("Escolhi esse horário!", h.name);
+    function botao(h, sessao, index){
         setHora(h.name);
-        setSessao(s);
+        setSessao(sessao);
+        setSessaoEscolhida(index);
+        setIdSessao("/sessao/"+index);
     }
 
     return(
@@ -90,7 +91,6 @@ const Titulo = styled.div`
 `
 
 const Sessoes = styled.ul`
-
 `
 
 const Filme = styled.div`

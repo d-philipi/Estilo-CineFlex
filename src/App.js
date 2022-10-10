@@ -10,8 +10,10 @@ export default function App() {
     const [filmeEscolhido, setFilmeEscolhido] = useState();
     const [idFilme, setIdFilme] = useState("");
     const [sessao,setSessao] = useState([]);
+    const [idSessao, setIdSessao] = useState();
+    const [sessaoEscolhida, setSessaoEscolhida] = useState();
     const [hora, setHora] = useState();
-    const [assentos, setAssentos] = useState([]);
+    const [assentosEscolhidos, setAssentosEscolhidos] = useState([]);
 
     function mostrarFilmes (resposta){
         console.log(resposta.data);
@@ -31,9 +33,30 @@ export default function App() {
 	return (
         <BrowserRouter>
 			<Routes>
-                <Route path="/" element={<Filmes filmes={filmes} setFilmeEscolhido={setFilmeEscolhido} setIdFilme={setIdFilme}/>}/>
-				<Route path={idFilme} element={<Sessao setSessao={setSessao} filmeEscolhido={filmeEscolhido} setHora={setHora}/>} />
-                <Route path='' element={<Assentos/>}/>
+                <Route 
+                path="/" 
+                element={<Filmes 
+                filmes={filmes} 
+                setFilmeEscolhido={setFilmeEscolhido} 
+                setIdFilme={setIdFilme}/>}/>
+				<Route 
+                path={idFilme} 
+                element={<Sessao 
+                setSessao={setSessao} 
+                filmeEscolhido={filmeEscolhido} 
+                setHora={setHora} 
+                setIdSessao={setIdSessao} 
+                setSessaoEscolhida={setSessaoEscolhida}/>} />
+                <Route 
+                path="/sessao/2" 
+                element={<Assentos 
+                filmeEscolhido={filmeEscolhido} 
+                sessao={sessao} 
+                hora={hora} 
+                idFilme={idFilme} 
+                setAssentosEscolhidos={setAssentosEscolhidos} 
+                idSessao={idSessao} 
+                sessaoEscolhida={sessaoEscolhida}/>}/>
 			</Routes>
 		</BrowserRouter>
 	);
